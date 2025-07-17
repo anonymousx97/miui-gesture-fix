@@ -4,6 +4,7 @@
 
 PACKAGE_NAME="com.fb.fluid"
 LOG_FILE="/data/local/tmp/miui-gesture-fix.log"
+
 DIVIDER="================================"
 
 log() {
