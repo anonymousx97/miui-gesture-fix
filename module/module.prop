@@ -1,0 +1,6 @@
+id=miui-gesture-fix
+name=MIUI FNG Gesture Navigation Fix
+version=v1.0
+versionCode=10000
+author=Ryuk
+description=Enables FNG-based gesture navigation for third-party launchers on MIUI.

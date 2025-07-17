@@ -1,0 +1,38 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'module'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Zip the module
+        run: |
+          cd module
+          zip -r ../miui-gesture-fix.zip .
+
+      - name: Set up Git credentials
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+      - name: Create Git tag and GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(grep "^version=" module/module.prop | cut -d= -f2)
+          TAG="$VERSION"
+          git tag "$TAG"
+          git push origin "$TAG"
+          gh release create "$TAG" miui-gesture-fix.zip --title "$TAG" --notes "Automated release"
